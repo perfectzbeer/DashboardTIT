@@ -114,10 +114,9 @@ export const ShowDowntime = () => {
           legend: {
             display: true,
             position: "bottom",
-            // labels: {
-            //   color: ["rgb(255, 255, 255)"],
-            //   // arc: true,
-            // },
+            labels: {
+              color: ["rgb(255, 255, 255)"],
+            },
           },
         },
       },
