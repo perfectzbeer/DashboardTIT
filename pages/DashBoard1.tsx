@@ -57,7 +57,7 @@ function ShowProgress(props: { pdkey:String}){
 
     return(
         <div>
-            <div className='NameGauge'>Progressj</div>
+            <div className='NameGauge'>Progress</div>
             <GaugeChart id="gauge-progress" 
                 nrOfLevels={1} 
                 percent={(ProPercent/100)} 
