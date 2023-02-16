@@ -55,9 +55,63 @@ function ShowProgress(props: { pdkey:String}){
     let ProPercent = parseFloat(Number(ShowProgress[0]?.percent).toFixed(2));
     if(isNaN(ProPercent)) ProPercent = 0;
 
+    /// ----
+    const dataPro = {
+        labels: [
+            'Progress'
+        ],
+        datasets: [{  
+            data: [ProPercent, 100-ProPercent],
+            backgroundColor: [
+                '#75C095', 'rgb(188, 255, 215, 0.5)'
+            ],
+            hoverBackgroundColor: [
+                '#75C095', 'rgb(188, 255, 215, 0.5)'
+            ],
+        }],
+    }
+
+    useEffect(() => {
+        const ctx = canvasPro.current?.getContext('2d') as ChartItem
+        const config = {
+            type: 'doughnut',
+            data: dataPro,
+            width: 1,
+            height: 1,
+            options: {
+                // circumference:[ShowProgress[0]?.percent*(360/100)],
+                cutoutPercentage : 80, // precent
+                plugins: {
+                    datalabels: {
+                        color :'white',
+                        formatter:(value: number, context: { chart: { data: { datasets: { data: any; }[]; }; }; }) => {
+                            const datapoints = context.chart.data.datasets[0].data;
+                            function totalSum(){
+                                return 100;
+                            }
+                            const totalvalue = datapoints.reduce(totalSum, 0);
+                            const percentageValue = (value/totalvalue*100).toFixed(2);
+                            return percentageValue+"%";
+                        }
+                    },
+                },
+            },
+            plugins: [ChartDataLabels]
+        }
+        const myLineChart = new Chart(ctx, config as any);
+        return function cleanup() {
+            myLineChart.destroy();
+        };
+    },[]);
+
+    const canvasPro = useRef(
+        typeof document !=="undefined" ? document.createElement("canvas") : null
+    );
+
     return(
         <div>
             <div className='NameGauge'>Progress</div>
+            {/* <canvas ref={canvasPro} /> */}
             <GaugeChart id="gauge-progress" 
                 nrOfLevels={1} 
                 percent={(ProPercent/100)} 
@@ -298,23 +352,23 @@ function ShowPerformance(){
     return(
         <div>
             <div className='NameGauge'>Performance</div>
-            <GaugeChart id="gauge-chart2" 
+            {/* <GaugeChart id="gauge-chart2" 
                 nrOfLevels={10} 
                 percent={(Perfor)} 
                 colors={["#EA4228", "#5BE12C"]} 
                 needleBaseColor={'#FFFFFF'}
                 needleColor={'#FFFFFF'}
                 textColor={'#FFFFFF '}
-            />
+            /> */}
             <div className='NameGauge'>Availability</div>
-            <GaugeChart id="gauge-chart3" 
+            {/* <GaugeChart id="gauge-chart3" 
                 nrOfLevels={10} 
                 percent={(Ava)} 
                 colors={["#EA4228", "#5BE12C"]} 
                 needleBaseColor={'#FFFFFF'}
                 needleColor={'#FFFFFF'}
                 textColor={'#FFFFFF '}
-            />               
+            />                */}
         </div>
     )
 }
@@ -368,23 +422,23 @@ function ShowOEE(){
     return(
         <div>
             <div className='NameGauge'>Quality</div>
-            <GaugeChart id="gauge-chart4" 
+            {/* <GaugeChart id="gauge-chart4" 
                 nrOfLevels={10} 
                 percent={Quality} 
                 colors={["#EA4228", "#5BE12C"]} 
                 needleBaseColor={'#FFFFFF'}
                 needleColor={'#FFFFFF'}
                 textColor={'#FFFFFF '}
-            />
+            /> */}
             <div className='NameGauge'>OEE</div>
-            <GaugeChart id="gauge-chart4" 
+            {/* <GaugeChart id="gauge-chart4" 
                 nrOfLevels={10} 
                 percent={(OeePercent/100)} 
                 colors={["#EA4228", "#5BE12C"]} 
                 needleBaseColor={'#FFFFFF'}
                 needleColor={'#FFFFFF'}
                 textColor={'#FFFFFF '}
-            />
+            /> */}
         </div>
     )
 }
