@@ -158,18 +158,21 @@ export default function ShowDashBoard1() {
         }
         .NameGroup{
           width: 33%;
+          float: left;
+          padding-left: 10px;
           text-align: left;
           display: inline;
         }
         .NameUnit{
           width: 33%;
+          float: left;
           text-align: center;
           display: inline;
         }
       `}</style>
       <div
         className={`${ShowUnit[0]?.pdstatus}`}
-        style={{ height: 40, width: '100%', fontSize: 32, borderRadius: 0 }}
+        style={{ height: 40, fontSize: 32, borderRadius: 0 }}
       >
         <div className="NameGroup">ASSEMBLY</div>
         <div className="NameUnit">{ShowUnit[0]?.pdunit}</div>
