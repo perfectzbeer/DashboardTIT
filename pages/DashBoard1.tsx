@@ -156,12 +156,23 @@ export default function ShowDashBoard1() {
           font-size: 20px;
           font-weight: bold;
         }
+        .NameGroup{
+          width: 33%;
+          text-align: left;
+          display: inline;
+        }
+        .NameUnit{
+          width: 33%;
+          text-align: center;
+          display: inline;
+        }
       `}</style>
       <div
         className={`${ShowUnit[0]?.pdstatus}`}
-        style={{ height: 40, fontSize: 32, borderRadius: 0, }}
+        style={{ height: 40, width: '100%', fontSize: 32, borderRadius: 0 }}
       >
-        {ShowUnit[0]?.pdunit}
+        <div className="NameGroup">ASSEMBLY</div>
+        <div className="NameUnit">{ShowUnit[0]?.pdunit}</div>
       </div>
       <Grid
         container
@@ -174,7 +185,6 @@ export default function ShowDashBoard1() {
           <Grid container spacing={1} item lg={12} md={12} xs={12}>
             <Grid item xs={6}>
               <div className={"Machine"}>
-                ASSEMBLY
                 <div className="Distanct">Work order : {ShowUnit[0]?.woid}</div>
                 <div className="Distanct">Item : {ShowUnit[0]?.itemnumber}</div>
                 <ShowProgressWork pdkey={String(ShowUnit[0]?.pdkey)} />
