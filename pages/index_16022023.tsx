@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import React, { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
 import supabase from "../component/supabase";
@@ -64,6 +65,11 @@ export default function ShowDashBoard1() {
 
   return (
     <div>
+        <Head>
+        <title>Dashboard AHPB-01</title>
+        <meta name="description" content="Dashboard AHPB-01" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <style jsx global>{`
         body {
           font-size: 16px;
@@ -159,7 +165,7 @@ export default function ShowDashBoard1() {
       `}</style>
       <div
         className={`${ShowUnit[0]?.pdstatus}`}
-        style={{ height: 40, fontSize: 32, borderRadius: 0, }}
+        style={{ height: 40, fontSize: 32, borderRadius: 0, marginTop: -5 }}
       >
         {ShowUnit[0]?.pdunit}
       </div>
