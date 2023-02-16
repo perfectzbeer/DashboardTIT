@@ -664,10 +664,10 @@ export default function ShowDashBoard1(){
                 font-weight:bold;
             }
         `}</style> 
-        <div className={`${ShowUnit[0]?.pdstatus}`} style={{height:40, fontSize:32, borderRadius:0, marginTop:-5}}>
+        <div className={`${ShowUnit[0]?.pdstatus}`} style={{height:44, fontSize:36, borderRadius:0}}>
             {ShowUnit[0]?.pdunit}
         </div>
-        <Grid container rowSpacing={0} columnSpacing={0} paddingTop={0.5} paddingLeft={2}>
+        <Grid container rowSpacing={0} columnSpacing={0} paddingTop={1.5} paddingLeft={2}>
             <Grid item xs={7}>
                 <Grid container spacing={1} item lg={12} md={12} xs={12}>
                     <Grid item xs={6}>
