@@ -298,23 +298,22 @@ function ShowPerformance(){
     return(
         <div>
             <div className='NameGauge'>Performance</div>
-            {/* <GaugeChart id="gauge-chart2" 
+            <GaugeChart id="gauge-chart2" 
                 nrOfLevels={10} 
                 percent={(Perfor)} 
                 colors={["#EA4228", "#5BE12C"]} 
                 needleBaseColor={'#FFFFFF'}
                 needleColor={'#FFFFFF'}
                 textColor={'#FFFFFF '}
-            /> */}
-            <div className='NameGauge'>Availability</div>
-            {/* <GaugeChart id="gauge-chart3" 
+            />             <div className='NameGauge'>Availability</div>
+            <GaugeChart id="gauge-chart3" 
                 nrOfLevels={10} 
                 percent={(Ava)} 
                 colors={["#EA4228", "#5BE12C"]} 
                 needleBaseColor={'#FFFFFF'}
                 needleColor={'#FFFFFF'}
                 textColor={'#FFFFFF '}
-            />                */}
+            />               
         </div>
     )
 }
@@ -368,23 +367,23 @@ function ShowOEE(){
     return(
         <div>
             <div className='NameGauge'>Quality</div>
-            {/* <GaugeChart id="gauge-chart4" 
+            <GaugeChart id="gauge-chart4" 
                 nrOfLevels={10} 
                 percent={Quality} 
                 colors={["#EA4228", "#5BE12C"]} 
                 needleBaseColor={'#FFFFFF'}
                 needleColor={'#FFFFFF'}
                 textColor={'#FFFFFF '}
-            /> */}
+            />
             <div className='NameGauge'>OEE</div>
-            {/* <GaugeChart id="gauge-chart4" 
+            <GaugeChart id="gauge-chart4" 
                 nrOfLevels={10} 
                 percent={(OeePercent/100)} 
                 colors={["#EA4228", "#5BE12C"]} 
                 needleBaseColor={'#FFFFFF'}
                 needleColor={'#FFFFFF'}
                 textColor={'#FFFFFF '}
-            /> */}
+            />
         </div>
     )
 }
