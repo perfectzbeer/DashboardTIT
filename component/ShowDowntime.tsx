@@ -1,0 +1,139 @@
+import { useEffect, useRef, useState } from "react";
+import supabase from "./supabase";
+import ChartDataLabels from "chartjs-plugin-datalabels";
+// import { Chart, ChartItem } from "chart.js";
+import { Chart, ChartItem, registerables, ChartType } from "chart.js";
+Chart.register(...registerables);
+
+export const ShowDowntime = () => {
+  const [Downtime, SetDTData] = useState<any>([]);
+  const Today = new Date().toISOString().slice(0, 10);
+
+  const DowntimeRecord = supabase
+    .channel("custom-downtime-channel")
+    .on(
+      "postgres_changes",
+      { event: "*", schema: "public", table: "Downtime_record" },
+      (payload) => {
+        fetchDataDT();
+      }
+    )
+    .subscribe();
+
+  const fetchDataDT = async () => {
+    const { data, error } = await supabase.rpc("showdtline", {
+      prounit: "AHPB-01",
+      pdate: Today,
+    });
+    if (!error) {
+      SetDTData(data);
+    }
+  };
+
+  useEffect(() => {
+    const fetchDataDT = async () => {
+      const { data, error } = await supabase.rpc("showdtline", {
+        prounit: "AHPB-01",
+        pdate: Today,
+      });
+      if (!error) {
+        SetDTData(data);
+      }
+    };
+    fetchDataDT();
+  }, []);
+
+  const dataDT = {
+    labels: Downtime.map(
+      (row: {
+        dcode: String;
+        duration: Number;
+        durationline: Number;
+        alldt: Number;
+      }) =>
+        row.dcode +
+        " " +
+        ((Number(row.duration) / Number(row.alldt)) * 100).toFixed(1) +
+        "%"
+    ),
+    datasets: [
+      {
+        label: "Down time reason",
+        data: Downtime.map((row: { duration: Number }) => row.duration),
+      },
+    ],
+    position: "top",
+  };
+
+  const canvasDT = useRef(
+    typeof document !== "undefined" ? document.createElement("canvas") : null
+  );
+
+  useEffect(() => {
+    const ctx = canvasDT.current?.getContext("2d") as ChartItem;
+
+    const config = {
+      type: "pie" as ChartType,
+      data: dataDT,
+      width: 1,
+      height: 1,
+
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+          title: {
+            display: true,
+            text: "Down time Reason",
+            color: ["rgb(255, 255, 255)"],
+            font: {
+              size: 20,
+              // style: 'italic',
+              family: "serif",
+            },
+          },
+          datalabels: {
+            color: "white",
+            formatter: (
+              value: number,
+              context: { chart: { data: { datasets: { data: any }[] } } }
+            ) => {
+              const datapoints = context.chart.data.datasets[0].data;
+              function totalSum() {
+                return Downtime[0]?.alldt;
+              }
+              const totalvalue = datapoints.reduce(totalSum, 0);
+              const percentageValue = ((value / totalvalue) * 100).toFixed(1);
+              return percentageValue + "%";
+              // return percentageValue+"% ("+value+" Min.)";
+            },
+            anchor: "end",
+            align: "end",
+            offset: 1,
+          },
+          legend: {
+            display: true,
+            position: "bottom",
+            // labels: {
+            //   color: ["rgb(255, 255, 255)"],
+            //   // arc: true,
+            // },
+          },
+        },
+      },
+      plugins: [ChartDataLabels],
+    };
+
+    const myLineChart = new Chart(ctx, config);
+
+    return function cleanup() {
+      myLineChart.destroy();
+    };
+  }, [Downtime]);
+
+  return (
+    <div>
+      <canvas ref={canvasDT} />
+    </div>
+  );
+};
