@@ -199,10 +199,10 @@ export default function ShowDashBoard1() {
               <ShowProgress pdkey={String(ShowUnit[0]?.pdkey)} />
             </Grid>
             <Grid item xs={6}>
-              <ShowPerformance />
+              <ShowPerformance pdstatus={String(ShowUnit[0]?.pdstatus)} />
             </Grid>
             <Grid item xs={6}>
-              <ShowOEE />
+              <ShowOEE pdstatus={String(ShowUnit[0]?.pdstatus)} />
             </Grid>
           </Grid>
         </Grid>

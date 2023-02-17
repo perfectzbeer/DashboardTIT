@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import GaugeChart from "react-gauge-chart";
 import supabase from "./supabase";
 
-export const ShowPerformance = () => {
+export const ShowPerformance = (props: { pdstatus: String }) => {
+  const { pdstatus } = props;
   const [PerData, SetPerData] = useState<any>([]);
   const Today = new Date().toISOString().slice(0, 10);
 
@@ -26,6 +27,7 @@ export const ShowPerformance = () => {
     const { data, error } = await supabase.rpc("showoeeline", {
       prounit: "AHPB-01",
       pdate: Today,
+      pstatus: pdstatus
     });
     if (!error) {
       SetPerData(data);
@@ -37,6 +39,7 @@ export const ShowPerformance = () => {
       const { data, error } = await supabase.rpc("showoeeline", {
         prounit: "AHPB-01",
         pdate: Today,
+        pstatus: pdstatus
       });
       if (!error) {
         SetPerData(data);
