@@ -55,7 +55,7 @@ export const ShowOEE = () => {
   if (isNaN(oee)) oee = 0;
   let OeePercent = parseFloat(Number(oee).toFixed(2));
   if (isNaN(OeePercent)) OeePercent = 0;
-
+  
   return (
     <div>
       <div className="NameGauge">Quality</div>

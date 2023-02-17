@@ -48,7 +48,7 @@ export const ShowProgress = (props: { pdkey: String }) => {
     };
   }, [pdkey]);
 
-  let ProPercent = parseFloat(Number(ShowProgress[0]?.percent).toFixed(2));
+  let ProPercent = parseFloat(Number(ShowProgress[0]?.percent).toFixed(0));
   if (isNaN(ProPercent)) ProPercent = 0;
 
   return (

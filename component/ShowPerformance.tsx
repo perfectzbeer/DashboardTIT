@@ -40,6 +40,7 @@ export const ShowPerformance = () => {
       });
       if (!error) {
         SetPerData(data);
+        console.log(data)
       }
     };
     fetchDataPer();

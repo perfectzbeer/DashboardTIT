@@ -141,7 +141,9 @@ export default function ShowDashBoard1() {
           position: relative;
         }
         .Distanct {
+          text-align: left;
           padding: 0.5px;
+          padding-left: 10px;
           color: #fff;
         }
         .FootDetail {
@@ -172,7 +174,7 @@ export default function ShowDashBoard1() {
       `}</style>
       <div
         className={`${ShowUnit[0]?.pdstatus}`}
-        style={{ height: 40, fontSize: 32, borderRadius: 0 }}
+        style={{ height: 44, fontSize: 32, borderRadius: 0 }}
       >
         <div className="NameGroup">ASSEMBLY</div>
         <div className="NameUnit">{ShowUnit[0]?.pdunit}</div>

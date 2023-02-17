@@ -75,10 +75,10 @@ export const ShowProgressWork = (props: { pdkey: String }) => {
           <div className='Distanct'>OEE : {OeePercent}%</div> */}
       <div className="Distanct">
         FG : {ShowProgress[0]?.okqty}/{ShowProgress[0]?.openqty} (
-        {ShowProgress[0]?.percent}%)
+        {ShowProgress[0]?.percent.toFixed(0)}%)
       </div>
       <div className="Distanct">
-        NG : {ShowProgress[0]?.ngqty} ({ShowProgress[0]?.percentng}%)
+        NG : {ShowProgress[0]?.ngqty} ({ShowProgress[0]?.percentng.toFixed(0)}%)
       </div>
       {/* <div className='Distanct'>Duration : {ShowProgress[0]?.duration} Minutes</div>
           <div className='Distanct'>Runtime :  {Runtime} Minutes</div>
