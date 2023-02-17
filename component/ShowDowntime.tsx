@@ -60,9 +60,9 @@ export const ShowDowntime = () => {
       {
         label: "Down time reason",
         data: Downtime.map((row: { duration: Number }) => row.duration),
+        
       },
     ],
-    position: "top",
   };
 
   const canvasDT = useRef(
@@ -71,7 +71,7 @@ export const ShowDowntime = () => {
 
   useEffect(() => {
     const ctx = canvasDT.current?.getContext("2d") as ChartItem;
-
+    
     const config = {
       type: "pie" as ChartType,
       data: dataDT,
@@ -90,6 +90,12 @@ export const ShowDowntime = () => {
               size: 20,
               // style: 'italic',
               family: "serif",
+            },
+            padding: {
+              top: -2,
+              right: 1,
+              bottom: 16,
+              left: 2
             },
           },
           datalabels: {
@@ -114,6 +120,11 @@ export const ShowDowntime = () => {
           legend: {
             display: true,
             position: "bottom",
+            align: "start",
+            title: {
+              display: true,
+              padding: 1,
+            },
             labels: {
               color: ["rgb(255, 255, 255)"],
             },
