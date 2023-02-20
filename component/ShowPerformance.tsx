@@ -46,8 +46,8 @@ export const ShowPerformance = (props: { pdstatus: String }) => {
       }
     };
     fetchDataPer();
-  }, [pdstatus]);
-
+  }, []);
+  console.log(PerData[0]?.performance)
   let Ava = parseFloat(Number(PerData[0]?.runtime).toFixed(1))/parseFloat(Number(PerData[0]?.duration).toFixed(1));
   if (isNaN(Ava)) Ava = 0;
   let Perfor = parseFloat(Number(PerData[0]?.performance).toFixed(1));
