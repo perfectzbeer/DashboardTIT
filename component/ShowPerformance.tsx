@@ -48,9 +48,10 @@ export const ShowPerformance = (props: { pdstatus: String }) => {
     fetchDataPer();
   }, []);
   
-  let Ava = parseFloat(Number(PerData[0]?.runtime).toFixed(1))/parseFloat(Number(PerData[0]?.duration).toFixed(1));
+  let AvaTemp = Number(PerData[0]?.runtime)/Number(PerData[0]?.duration);
+  let Ava = parseFloat(Number(AvaTemp*100).toFixed(0));
   if (isNaN(Ava)) Ava = 0;
-  let Perfor = parseFloat(Number(PerData[0]?.performance).toFixed(1));
+  let Perfor = parseFloat(Number(PerData[0]?.performance).toFixed(0));
   if (isNaN(Perfor)) Perfor = 0;
 
   return (
@@ -69,7 +70,7 @@ export const ShowPerformance = (props: { pdstatus: String }) => {
       <GaugeChart
         id="gauge-chart3"
         nrOfLevels={10}
-        percent={Ava}
+        percent={Ava/100}
         colors={["#EA4228", "#5BE12C"]}
         needleBaseColor={"#FFFFFF"}
         needleColor={"#FFFFFF"}

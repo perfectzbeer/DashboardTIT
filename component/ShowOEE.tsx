@@ -57,7 +57,7 @@ export const ShowOEE = (props: { pdstatus: String }) => {
   if (isNaN(Quality)) Quality = 0;
   let oee = Ava * Perfor * Quality * 100;
   if (isNaN(oee)) oee = 0;
-  let OeePercent = parseFloat(Number(oee).toFixed(1));
+  let OeePercent = parseFloat(Number(oee).toFixed(0));
   if (isNaN(OeePercent)) OeePercent = 0;
   
   return (
