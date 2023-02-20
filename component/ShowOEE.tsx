@@ -47,7 +47,7 @@ export const ShowOEE = (props: { pdstatus: String }) => {
       }
     };
     fetchDataOEE();
-  }, [Today]);
+  }, []);
 
   let Ava = Oeedata[0]?.runtime / Oeedata[0]?.duration;
   if (isNaN(Ava)) Ava = 0;

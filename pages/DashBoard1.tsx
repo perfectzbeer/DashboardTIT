@@ -12,6 +12,7 @@ import { ShowDTRealTime } from "../component/ShowDTRealTime";
 export default function ShowDashBoard1() {
   const [ShowUnit, SetShowUnit] = useState<any>("");
   const [loadings, setLoadings] = useState(false);
+  const lineunit = 'AHPB-01';
 
   useEffect(() => {
     document.addEventListener("click", (e) => {
@@ -27,7 +28,7 @@ export default function ShowDashBoard1() {
         event: "*",
         schema: "public",
         table: "Production_unit_group",
-        filter: "PD_line=eq.AHPB-01",
+        filter: "PD_line=eq."+lineunit,
       },
       (payload) => {
         fetchShowUnit();
@@ -37,7 +38,7 @@ export default function ShowDashBoard1() {
 
   const fetchShowUnit = async () => {
     const { data, error } = await supabase.rpc("showline", {
-      prounit: "AHPB-01",
+      prounit: lineunit,
     });
     if (!error) {
       SetShowUnit(data);
@@ -47,7 +48,7 @@ export default function ShowDashBoard1() {
   useEffect(() => {
     const fetchShowUnit = async () => {
       const { data, error } = await supabase.rpc("showline", {
-        prounit: "AHPB-01",
+        prounit: lineunit,
       });
       if (!error) {
         SetShowUnit(data);
@@ -55,7 +56,7 @@ export default function ShowDashBoard1() {
     };
     fetchShowUnit();
     setLoadings(false);
-  }, []);
+  }, [lineunit]);
   // End Data Line
 
   if (loadings) {

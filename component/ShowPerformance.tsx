@@ -7,7 +7,7 @@ export const ShowPerformance = (props: { pdstatus: String }) => {
   const [PerData, SetPerData] = useState<any>([]);
   const Today = new Date().toISOString().slice(0, 10);
   const lineunit = 'AHPB-01';
-  const ProductionHistory = supabase
+  const ProductionHistoryP = supabase
     .channel("custom-perf-channel")
     .on(
       "postgres_changes",
@@ -46,7 +46,7 @@ export const ShowPerformance = (props: { pdstatus: String }) => {
       }
     };
     fetchDataPer();
-  }, [Today]);
+  }, []);
   
   let AvaTemp = Number(PerData[0]?.runtime)/Number(PerData[0]?.duration);
   let Ava = parseFloat(Number(AvaTemp*100).toFixed(0));
