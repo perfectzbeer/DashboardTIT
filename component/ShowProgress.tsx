@@ -6,6 +6,7 @@ export const ShowProgress = (props: { pdkey: String }) => {
   const { pdkey } = props;
   const mounted = useRef(false);
   const [ShowProgress, SetShowProgress] = useState<any>("");
+  const lineunit = 'AHPB-01';
 
   const ProductionHistory = supabase
     .channel("custom-progress-channel")
@@ -15,7 +16,7 @@ export const ShowProgress = (props: { pdkey: String }) => {
         event: "*",
         schema: "public",
         table: "Production_history",
-        filter: "Production_unit=eq.AHPB-01",
+        filter: "Production_unit=eq."+lineunit,
       },
       (payload) => {
         fetchShowProgress();

@@ -6,6 +6,7 @@ export const ShowOEE = (props: { pdstatus: String }) => {
   const { pdstatus } = props;
   const [Oeedata, SetOeeData] = useState<any>([]);
   const Today = new Date().toISOString().slice(0, 10);
+  const lineunit = 'AHPB-01';
 
   const ProductionHistory = supabase
     .channel("oee-channel")
@@ -15,7 +16,7 @@ export const ShowOEE = (props: { pdstatus: String }) => {
         event: "*",
         schema: "public",
         table: "Production_history",
-        filter: "Production_unit=eq.AHPB-01",
+        filter: "Production_unit=eq."+lineunit,
       },
       (payload) => {
         fetchDataOEE();
@@ -25,7 +26,7 @@ export const ShowOEE = (props: { pdstatus: String }) => {
 
   const fetchDataOEE = async () => {
     const { data, error } = await supabase.rpc("showoeeline", {
-      prounit: "AHPB-01",
+      prounit: lineunit,
       pdate: Today,
       pstatus: pdstatus
     });
@@ -37,7 +38,7 @@ export const ShowOEE = (props: { pdstatus: String }) => {
   useEffect(() => {
     const fetchDataOEE = async () => {
       const { data, error } = await supabase.rpc("showoeeline", {
-        prounit: "AHPB-01",
+        prounit: lineunit,
         pdate: Today,
         pstatus: pdstatus
       });

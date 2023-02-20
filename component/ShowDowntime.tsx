@@ -8,6 +8,7 @@ Chart.register(...registerables);
 export const ShowDowntime = () => {
   const [Downtime, SetDTData] = useState<any>([]);
   const Today = new Date().toISOString().slice(0, 10);
+  const lineunit = 'AHPB-01';
 
   const DowntimeRecord = supabase
     .channel("custom-downtime-channel")
@@ -22,7 +23,7 @@ export const ShowDowntime = () => {
 
   const fetchDataDT = async () => {
     const { data, error } = await supabase.rpc("showdtline", {
-      prounit: "AHPB-01",
+      prounit: lineunit,
       pdate: Today,
     });
     if (!error) {
@@ -33,7 +34,7 @@ export const ShowDowntime = () => {
   useEffect(() => {
     const fetchDataDT = async () => {
       const { data, error } = await supabase.rpc("showdtline", {
-        prounit: "AHPB-01",
+        prounit: lineunit,
         pdate: Today,
       });
       if (!error) {
@@ -41,7 +42,7 @@ export const ShowDowntime = () => {
       }
     };
     fetchDataDT();
-  }, []);
+  }, [lineunit]);
 
   const dataDT = {
     labels: Downtime.map(

@@ -6,7 +6,7 @@ export const ShowPerformance = (props: { pdstatus: String }) => {
   const { pdstatus } = props;
   const [PerData, SetPerData] = useState<any>([]);
   const Today = new Date().toISOString().slice(0, 10);
-
+  const lineunit = 'AHPB-01';
   const ProductionHistory = supabase
     .channel("custom-perf-channel")
     .on(
@@ -15,7 +15,7 @@ export const ShowPerformance = (props: { pdstatus: String }) => {
         event: "*",
         schema: "public",
         table: "Production_history",
-        filter: "Production_unit=eq.AHPB-01",
+        filter: "Production_unit=eq."+lineunit,
       },
       (payload) => {
         fetchDataPer();
@@ -25,7 +25,7 @@ export const ShowPerformance = (props: { pdstatus: String }) => {
 
   const fetchDataPer = async () => {
     const { data, error } = await supabase.rpc("showoeeline", {
-      prounit: "AHPB-01",
+      prounit: lineunit,
       pdate: Today,
       pstatus: pdstatus
     });
@@ -37,7 +37,7 @@ export const ShowPerformance = (props: { pdstatus: String }) => {
   useEffect(() => {
     const fetchDataPer = async () => {
       const { data, error } = await supabase.rpc("showoeeline", {
-        prounit: "AHPB-01",
+        prounit: lineunit,
         pdate: Today,
         pstatus: pdstatus
       });
@@ -47,7 +47,7 @@ export const ShowPerformance = (props: { pdstatus: String }) => {
     };
     fetchDataPer();
   }, []);
-  console.log(PerData[0]?.performance)
+  
   let Ava = parseFloat(Number(PerData[0]?.runtime).toFixed(1))/parseFloat(Number(PerData[0]?.duration).toFixed(1));
   if (isNaN(Ava)) Ava = 0;
   let Perfor = parseFloat(Number(PerData[0]?.performance).toFixed(1));

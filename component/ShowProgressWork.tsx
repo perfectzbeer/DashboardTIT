@@ -6,6 +6,7 @@ export const ShowProgressWork = (props: { pdkey: String }) => {
   const mounted = useRef(false);
   const Today = new Date().toISOString().slice(0, 10);
   const [ShowProgress, SetShowProgress] = useState<any>("");
+  const lineunit = 'AHPB-01';
 
   const ProductionHistory = supabase
     .channel("progress-work-channel")
@@ -15,7 +16,7 @@ export const ShowProgressWork = (props: { pdkey: String }) => {
         event: "*",
         schema: "public",
         table: "Production_history",
-        filter: "Production_unit=eq.AHPB-01",
+        filter: "Production_unit=eq."+lineunit,
       },
       (payload) => {
         fetchShowProgress();

@@ -14,6 +14,7 @@ export const ShowWO = () => {
   const mounted = useRef(false);
   const [GetWoLine, SetWoLine] = useState<any>([]);
   const Today = new Date().toISOString().slice(0, 10);
+  const lineunit = 'AHPB-01';
 
   useEffect(() => {
     mounted.current = true;
@@ -23,7 +24,7 @@ export const ShowWO = () => {
         .select(
           "Work_order_id,Item_number,Availability_percent,Performance_percent,Quality_percent,OEE_percent"
         )
-        .eq("Production_unit", "AHPB-01")
+        .eq("Production_unit", lineunit)
         .eq("Production_date", Today)
         .order("Begin_time");
       if (!error) {
