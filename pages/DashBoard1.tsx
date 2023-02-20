@@ -56,7 +56,7 @@ export default function ShowDashBoard1() {
     };
     fetchShowUnit();
     setLoadings(false);
-  }, [lineunit]);
+  }, []);
   // End Data Line
 
   if (loadings) {
@@ -200,10 +200,10 @@ export default function ShowDashBoard1() {
               <ShowProgress pdkey={String(ShowUnit[0]?.pdkey)} />
             </Grid>
             <Grid item xs={6}>
-              <ShowPerformance pdstatus={String(ShowUnit[0]?.pdstatus)} />
+              <ShowPerformance pdkey={String(ShowUnit[0]?.pdkey)} pdstatus={String(ShowUnit[0]?.pdstatus)} />
             </Grid>
             <Grid item xs={6}>
-              <ShowOEE pdstatus={String(ShowUnit[0]?.pdstatus)} />
+              <ShowOEE pdkey={String(ShowUnit[0]?.pdkey)} pdstatus={String(ShowUnit[0]?.pdstatus)} />
             </Grid>
           </Grid>
         </Grid>

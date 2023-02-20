@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import GaugeChart from "react-gauge-chart";
 import supabase from "./supabase";
 
-export const ShowOEE = (props: { pdstatus: String }) => {
-  const { pdstatus } = props;
+export const ShowOEE = (props: { pdkey: String, pdstatus: String }) => {
+  const { pdkey, pdstatus } = props;
   const [Oeedata, SetOeeData] = useState<any>([]);
   const Today = new Date().toISOString().slice(0, 10);
   const lineunit = 'AHPB-01';
+  const [ShowProgress, SetShowProgress] = useState<any>("");
 
   const ProductionHistory = supabase
     .channel("oee-channel")
@@ -49,6 +50,9 @@ export const ShowOEE = (props: { pdstatus: String }) => {
     fetchDataOEE();
   }, []);
 
+
+  
+
   let Ava = Oeedata[0]?.runtime / Oeedata[0]?.duration;
   if (isNaN(Ava)) Ava = 0;
   let Perfor = Oeedata[0]?.performance/100;
@@ -59,7 +63,7 @@ export const ShowOEE = (props: { pdstatus: String }) => {
   if (isNaN(oee)) oee = 0;
   let OeePercent = parseFloat(Number(oee).toFixed(0));
   if (isNaN(OeePercent)) OeePercent = 0;
-  
+
   return (
     <div>
       <div className="NameGauge">Quality</div>

@@ -53,8 +53,7 @@ export const ShowProgressWork = (props: { pdkey: String }) => {
   if (isNaN(Ava)) Ava = 0;
   let Perfor =
     (ShowProgress[0]?.std * (ShowProgress[0]?.okqty + ShowProgress[0]?.ngqty)) /
-    ((ShowProgress[0]?.duration - ShowProgress[0]?.downtime) /
-      ShowProgress[0]?.manpower);
+    ((ShowProgress[0]?.duration - ShowProgress[0]?.downtime));
   if (isNaN(Perfor)) Perfor = 0;
   let Quality =
     ShowProgress[0]?.okqty / (ShowProgress[0]?.okqty + ShowProgress[0]?.ngqty);
