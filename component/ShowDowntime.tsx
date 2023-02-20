@@ -42,7 +42,7 @@ export const ShowDowntime = () => {
       }
     };
     fetchDataDT();
-  }, [lineunit]);
+  }, []);
 
   const dataDT = {
     labels: Downtime.map(

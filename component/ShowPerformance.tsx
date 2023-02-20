@@ -46,14 +46,14 @@ export const ShowPerformance = (props: { pdstatus: String }) => {
       }
     };
     fetchDataPer();
-  }, [lineunit]);
+  }, [Today]);
   
   let AvaTemp = Number(PerData[0]?.runtime)/Number(PerData[0]?.duration);
   let Ava = parseFloat(Number(AvaTemp*100).toFixed(0));
   if (isNaN(Ava)) Ava = 0;
   let Perfor = parseFloat(Number(PerData[0]?.performance).toFixed(0));
   if (isNaN(Perfor)) Perfor = 0;
-
+  
   return (
     <div>
       <div className="NameGauge">Performance</div>
