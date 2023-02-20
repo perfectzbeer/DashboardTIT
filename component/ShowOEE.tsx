@@ -50,7 +50,7 @@ export const ShowOEE = (props: { pdstatus: String }) => {
 
   let Ava = Oeedata[0]?.runtime / Oeedata[0]?.duration;
   if (isNaN(Ava)) Ava = 0;
-  let Perfor = Oeedata[0]?.performance;
+  let Perfor = Oeedata[0]?.performance/100;
   if (isNaN(Perfor)) Perfor = 0;
   let Quality = Oeedata[0]?.okqty / (Oeedata[0]?.okqty + Oeedata[0]?.ngqty);
   if (isNaN(Quality)) Quality = 0;

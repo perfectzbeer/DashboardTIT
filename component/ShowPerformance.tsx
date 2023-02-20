@@ -62,7 +62,7 @@ export const ShowPerformance = (props: { pdstatus: String }) => {
       <GaugeChart
         id="gauge-chart2"
         nrOfLevels={10}
-        percent={Perfor}
+        percent={Perfor/100}
         colors={["#EA4228", "#5BE12C"]}
         needleBaseColor={"#FFFFFF"}
         needleColor={"#FFFFFF"}
