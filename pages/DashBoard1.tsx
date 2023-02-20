@@ -174,7 +174,7 @@ export default function ShowDashBoard1() {
       `}</style>
       <div
         className={`${ShowUnit[0]?.pdstatus}`}
-        style={{ height: 48, fontSize: 34, borderRadius: 0, paddingTop:4 }}
+        style={{ height: 54, fontSize: 36, borderRadius: 0, paddingTop:6 }}
       >
         <div className="NameGroup">ASSEMBLY</div>
         <div className="NameUnit">{ShowUnit[0]?.pdunit}</div>

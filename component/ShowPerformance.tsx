@@ -47,7 +47,7 @@ export const ShowPerformance = (props: { pdstatus: String }) => {
       }
     };
     fetchDataPer();
-  }, []);
+  }, [pdstatus]);
 
   let Ava = PerData[0]?.runtime / PerData[0]?.duration;
   if (isNaN(Ava)) Ava = 0;
