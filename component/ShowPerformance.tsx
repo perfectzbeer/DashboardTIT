@@ -46,7 +46,7 @@ export const ShowPerformance = (props: { pdstatus: String }) => {
       }
     };
     fetchDataPer();
-  }, []);
+  }, [lineunit]);
   
   let AvaTemp = Number(PerData[0]?.runtime)/Number(PerData[0]?.duration);
   let Ava = parseFloat(Number(AvaTemp*100).toFixed(0));
