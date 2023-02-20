@@ -96,7 +96,7 @@ export const ShowPerformance = (props: { pdkey: String, pdstatus: String }) => {
     (ShowProgress[0]?.std * (ShowProgress[0]?.okqty + ShowProgress[0]?.ngqty)) /
     ((ShowProgress[0]?.duration - ShowProgress[0]?.downtime));
   if (isNaN(PerforPro)) PerforPro = 0;
-  console.log(AvaPro)
+
   let Runtime = ShowProgress[0]?.duration - ShowProgress[0]?.downtime;
   if (isNaN(Runtime)) Runtime = 0;
   //* End
@@ -105,7 +105,7 @@ export const ShowPerformance = (props: { pdkey: String, pdstatus: String }) => {
   let Ava = parseFloat(Number(AvaTemp*100).toFixed(0));
   if (isNaN(Ava)) Ava = 0;
   let Perfor = parseFloat(Number(PerData[0]?.performance).toFixed(0));
-  Perfor = Perfor+PerforPro
+  Perfor = Number(Perfor+PerforPro).toFixed(0)
   if (isNaN(Perfor)) Perfor = 0;
  
   return (
