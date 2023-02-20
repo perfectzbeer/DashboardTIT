@@ -43,18 +43,15 @@ export const ShowPerformance = (props: { pdstatus: String }) => {
       });
       if (!error) {
         SetPerData(data);
-        console.log(data)
       }
     };
     fetchDataPer();
   }, [pdstatus]);
 
-  let Ava = PerData[0]?.runtime / PerData[0]?.duration;
+  let Ava = parseFloat(Number(PerData[0]?.runtime).toFixed(1))/parseFloat(Number(PerData[0]?.duration).toFixed(1));
   if (isNaN(Ava)) Ava = 0;
-  let Perfor = PerData[0]?.performance;
+  let Perfor = parseFloat(Number(PerData[0]?.performance).toFixed(1));
   if (isNaN(Perfor)) Perfor = 0;
-  let Quality = PerData[0]?.okqty / (PerData[0]?.okqty + PerData[0]?.ngqty);
-  if (isNaN(Quality)) Quality = 0;
 
   return (
     <div>
