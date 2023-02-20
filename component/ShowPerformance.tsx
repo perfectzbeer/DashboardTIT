@@ -105,7 +105,7 @@ export const ShowPerformance = (props: { pdkey: String, pdstatus: String }) => {
   let Ava = parseFloat(Number(AvaTemp*100).toFixed(0));
   if (isNaN(Ava)) Ava = 0;
   let Perfor = parseFloat(Number(PerData[0]?.performance).toFixed(0));
-  Perfor = Number(Perfor+PerforPro).toFixed(0)
+  Perfor = parseFloat(Number(Perfor+PerforPro).toFixed(0));
   if (isNaN(Perfor)) Perfor = 0;
  
   return (
