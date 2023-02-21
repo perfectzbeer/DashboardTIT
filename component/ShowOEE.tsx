@@ -88,6 +88,7 @@ useEffect(() => {
     let PerforPro = (ShowProgress[0]?.std * (ShowProgress[0]?.okqty + ShowProgress[0]?.ngqty)) / ((ShowProgress[0]?.duration - ShowProgress[0]?.downtime));
     if (isNaN(PerforPro)) PerforPro = 0;
 
+    // Perfor = parseFloat(Number((Perfor+PerforPro)/2).toFixed(0)); 
     Perfor = parseFloat(Number((Perfor+PerforPro)/2).toFixed(0)); 
     if (isNaN(Perfor)) Perfor = 0;
     console.log({PerforPro})
