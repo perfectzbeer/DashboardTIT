@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import GaugeChart from "react-gauge-chart";
+import { ShowProgressWork } from "./ShowProgressWork";
 import supabase from "./supabase";
 
 export const ShowPerformance = (props: { pdkey: String, pdstatus: String }) => {
@@ -89,24 +90,34 @@ export const ShowPerformance = (props: { pdkey: String, pdstatus: String }) => {
     fetchShowProgress();
   }, [pdkey]);
 
-  // Start
-  let AvaPro = (ShowProgress[0]?.duration - ShowProgress[0]?.downtime) / ShowProgress[0]?.duration;
-  if (isNaN(AvaPro)) AvaPro = 0;
-  let PerforPro =
-    (ShowProgress[0]?.std * (ShowProgress[0]?.okqty + ShowProgress[0]?.ngqty)) /
-    ((ShowProgress[0]?.duration - ShowProgress[0]?.downtime));
-  if (isNaN(PerforPro)) PerforPro = 0;
+  let Perfor = 0;
+  let Ava = 0;
+  let AvaTemp = 0;
+  if(ShowProgress.length>0){
+    AvaTemp = (Number(PerData[0]?.runtime)+(ShowProgress[0]?.duration - ShowProgress[0]?.downtime)) / (Number(PerData[0]?.duration)+ShowProgress[0]?.duration);
+    Ava = parseFloat(Number(AvaTemp*100).toFixed(0));
+    if (isNaN(Ava)) Ava = 0;
+    console.log({Ava})
 
-  let Runtime = ShowProgress[0]?.duration - ShowProgress[0]?.downtime;
-  if (isNaN(Runtime)) Runtime = 0;
-  //* End
+    Perfor = parseFloat(Number(PerData[0]?.performance).toFixed(0));
+    let PerforPro = (ShowProgress[0]?.std * (ShowProgress[0]?.okqty + ShowProgress[0]?.ngqty)) / ((ShowProgress[0]?.duration - ShowProgress[0]?.downtime));
+    if (isNaN(PerforPro)) PerforPro = 0;
 
-  let AvaTemp = Number(PerData[0]?.runtime)/Number(PerData[0]?.duration);
-  let Ava = parseFloat(Number(AvaTemp*100).toFixed(0));
-  if (isNaN(Ava)) Ava = 0;
-  let Perfor = parseFloat(Number(PerData[0]?.performance).toFixed(0));
-  Perfor = parseFloat(Number(Perfor+PerforPro).toFixed(0));
-  if (isNaN(Perfor)) Perfor = 0;
+    Perfor = parseFloat(Number((Perfor+PerforPro)/2).toFixed(0)); 
+    if (isNaN(Perfor)) Perfor = 0;
+    console.log({PerforPro})
+    console.log({Perfor})
+  }else{
+    AvaTemp = Number(PerData[0]?.runtime)/Number(PerData[0]?.duration);
+    Ava = parseFloat(Number(AvaTemp*100).toFixed(0));
+    if (isNaN(Ava)) Ava = 0;
+    console.log({Ava})
+
+    Perfor = parseFloat(Number(PerData[0]?.performance).toFixed(0));
+    if (isNaN(Perfor)) Perfor = 0;
+    console.log({Perfor})
+  }
+  console.log(ShowProgress.length)
  
   return (
     <div>
