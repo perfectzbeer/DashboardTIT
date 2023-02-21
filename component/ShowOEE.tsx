@@ -7,7 +7,6 @@ export const ShowOEE = (props: { pdkey: String, pdstatus: String }) => {
   const [Oeedata, SetOeeData] = useState<any>([]);
   const Today = new Date().toISOString().slice(0, 10);
   const lineunit = 'AHPB-01';
-  const [PerData, SetPerData] = useState<any>([]);
   const [ShowProgress, SetShowProgress] = useState<any>("");
 
   const ProductionHistory = supabase
@@ -80,12 +79,12 @@ useEffect(() => {
   let AvaTemp = 0;
   let Quality = 0;
   if(ShowProgress.length>0){
-    AvaTemp = (Number(PerData[0]?.runtime)+(ShowProgress[0]?.duration - ShowProgress[0]?.downtime)) / (Number(PerData[0]?.duration)+ShowProgress[0]?.duration);
+    AvaTemp = (Number(ShowProgress[0]?.runtime)+(ShowProgress[0]?.duration - ShowProgress[0]?.downtime)) / (Number(ShowProgress[0]?.duration)+ShowProgress[0]?.duration);
     Ava = parseFloat(Number(AvaTemp*100).toFixed(0));
     if (isNaN(Ava)) Ava = 0;
     console.log({Ava})
 
-    Perfor = parseFloat(Number(PerData[0]?.performance).toFixed(0));
+    Perfor = parseFloat(Number(ShowProgress[0]?.performance).toFixed(0));
     let PerforPro = (ShowProgress[0]?.std * (ShowProgress[0]?.okqty + ShowProgress[0]?.ngqty)) / ((ShowProgress[0]?.duration - ShowProgress[0]?.downtime));
     if (isNaN(PerforPro)) PerforPro = 0;
 
@@ -94,16 +93,16 @@ useEffect(() => {
     console.log({PerforPro})
     console.log({Perfor})
 
-    Quality = (Oeedata[0]?.okqty+PerData[0]?.okqty) / ((Oeedata[0]?.okqty+PerData[0]?.okqty) + (Oeedata[0]?.ngqty+PerData[0]?.ngqty));
+    Quality = (Oeedata[0]?.okqty+ShowProgress[0]?.okqty) / ((Oeedata[0]?.okqty+ShowProgress[0]?.okqty) + (Oeedata[0]?.ngqty+ShowProgress[0]?.ngqty));
     if (isNaN(Quality)) Quality = 0;
     console.log({Quality})
   }else{
-    AvaTemp = Number(PerData[0]?.runtime)/Number(PerData[0]?.duration);
+    AvaTemp = Number(ShowProgress[0]?.runtime)/Number(ShowProgress[0]?.duration);
     Ava = parseFloat(Number(AvaTemp*100).toFixed(0));
     if (isNaN(Ava)) Ava = 0;
     console.log({Ava})
 
-    Perfor = parseFloat(Number(PerData[0]?.performance).toFixed(0));
+    Perfor = parseFloat(Number(ShowProgress[0]?.performance).toFixed(0));
     if (isNaN(Perfor)) Perfor = 0;
     console.log({Perfor})
 

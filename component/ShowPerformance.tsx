@@ -83,7 +83,6 @@ export const ShowPerformance = (props: { pdkey: String, pdstatus: String }) => {
     AvaTemp = (Number(PerData[0]?.runtime)+(ShowProgress[0]?.duration - ShowProgress[0]?.downtime)) / (Number(PerData[0]?.duration)+ShowProgress[0]?.duration);
     Ava = parseFloat(Number(AvaTemp*100).toFixed(0));
     if (isNaN(Ava)) Ava = 0;
-    console.log({Ava})
 
     Perfor = parseFloat(Number(PerData[0]?.performance).toFixed(0));
     let PerforPro = (ShowProgress[0]?.std * (ShowProgress[0]?.okqty + ShowProgress[0]?.ngqty)) / ((ShowProgress[0]?.duration - ShowProgress[0]?.downtime));
@@ -91,19 +90,14 @@ export const ShowPerformance = (props: { pdkey: String, pdstatus: String }) => {
 
     Perfor = parseFloat(Number((Perfor+PerforPro)/2).toFixed(0)); 
     if (isNaN(Perfor)) Perfor = 0;
-    console.log({PerforPro})
-    console.log({Perfor})
   }else{
     AvaTemp = Number(PerData[0]?.runtime)/Number(PerData[0]?.duration);
     Ava = parseFloat(Number(AvaTemp*100).toFixed(0));
     if (isNaN(Ava)) Ava = 0;
-    console.log({Ava})
 
     Perfor = parseFloat(Number(PerData[0]?.performance).toFixed(0));
     if (isNaN(Perfor)) Perfor = 0;
-    console.log({Perfor})
   }
-  console.log(ShowProgress.length)
  
   return (
     <div>
