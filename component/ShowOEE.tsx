@@ -88,37 +88,32 @@ useEffect(() => {
     let PerforPro = (ShowProgress[0]?.std * (ShowProgress[0]?.okqty + ShowProgress[0]?.ngqty)) / ((ShowProgress[0]?.duration - ShowProgress[0]?.downtime));
     if (isNaN(PerforPro)) PerforPro = 0;
 
-    // Perfor = parseFloat(Number((Perfor+PerforPro)/2).toFixed(0)); 
-    Perfor = parseFloat(Number((Perfor+PerforPro)/2).toFixed(0)); 
+    if(Perfor>0){
+      Perfor = parseFloat(Number((Perfor+PerforPro)/2).toFixed(0)); 
+    }else{
+      Perfor = parseFloat(Number((Perfor+PerforPro)).toFixed(0)); 
+    }
     if (isNaN(Perfor)) Perfor = 0;
-    console.log({PerforPro})
-    console.log({Perfor})
 
     Quality = (Oeedata[0]?.okqty+ShowProgress[0]?.okqty) / ((Oeedata[0]?.okqty+ShowProgress[0]?.okqty) + (Oeedata[0]?.ngqty+ShowProgress[0]?.ngqty));
     if (isNaN(Quality)) Quality = 0;
-    console.log({Quality})
   }else{
     AvaTemp = Number(ShowProgress[0]?.runtime)/Number(ShowProgress[0]?.duration);
     Ava = parseFloat(Number(AvaTemp*100).toFixed(0));
     if (isNaN(Ava)) Ava = 0;
-    console.log({Ava})
 
     Perfor = parseFloat(Number(ShowProgress[0]?.performance).toFixed(0));
     if (isNaN(Perfor)) Perfor = 0;
-    console.log({Perfor})
 
     Quality = Oeedata[0]?.okqty / (Oeedata[0]?.okqty + Oeedata[0]?.ngqty);
     if (isNaN(Quality)) Quality = 0;
-    console.log({Quality})
   }
     
   let oee = Ava * Perfor * Quality * 100;
   if (isNaN(oee)) oee = 0;
-  console.log({oee})
   
   let OeePercent = parseFloat(Number(oee).toFixed(0));
   if (isNaN(OeePercent)) OeePercent = 0;
-  console.log({OeePercent})
 
   return (
     <div>
