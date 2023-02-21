@@ -22,6 +22,7 @@ export const ShowOEE = (props: { pdkey: String, pdstatus: String }) => {
       },
       (payload) => {
         fetchDataOEE();
+        fetchShowProgress();
       }
     )
     .subscribe();
@@ -53,22 +54,6 @@ export const ShowOEE = (props: { pdkey: String, pdstatus: String }) => {
 
 
     //*** */
-  const ProductionHistoryOn = supabase
-  .channel("progress-work-channel")
-  .on(
-    "postgres_changes",
-    {
-      event: "*",
-      schema: "public",
-      table: "Production_history",
-      filter: "Production_unit=eq."+lineunit,
-    },
-    (payload) => {
-      fetchShowProgress();
-    }
-  )
-  .subscribe();
-
 const fetchShowProgress = async () => {
   let { data, error } = await supabase.rpc("onprogress", {
     propdkey: pdkey,
@@ -90,30 +75,50 @@ useEffect(() => {
   fetchShowProgress();
 }, [pdkey]);
 
+  let Perfor = 0;
+  let Ava = 0;
+  let AvaTemp = 0;
+  let Quality = 0;
+  if(ShowProgress.length>0){
+    AvaTemp = (Number(PerData[0]?.runtime)+(ShowProgress[0]?.duration - ShowProgress[0]?.downtime)) / (Number(PerData[0]?.duration)+ShowProgress[0]?.duration);
+    Ava = parseFloat(Number(AvaTemp*100).toFixed(0));
+    if (isNaN(Ava)) Ava = 0;
+    console.log({Ava})
 
-    // Start
-    let AvaPro = (ShowProgress[0]?.duration - ShowProgress[0]?.downtime) / ShowProgress[0]?.duration;
-    if (isNaN(AvaPro)) AvaPro = 0;
-    let PerforPro =
-      (ShowProgress[0]?.std * (ShowProgress[0]?.okqty + ShowProgress[0]?.ngqty)) /
-      ((ShowProgress[0]?.duration - ShowProgress[0]?.downtime));
+    Perfor = parseFloat(Number(PerData[0]?.performance).toFixed(0));
+    let PerforPro = (ShowProgress[0]?.std * (ShowProgress[0]?.okqty + ShowProgress[0]?.ngqty)) / ((ShowProgress[0]?.duration - ShowProgress[0]?.downtime));
     if (isNaN(PerforPro)) PerforPro = 0;
-  
-    let Runtime = ShowProgress[0]?.duration - ShowProgress[0]?.downtime;
-    if (isNaN(Runtime)) Runtime = 0;
-    //* End
-  
 
-  let Ava = Oeedata[0]?.runtime / Oeedata[0]?.duration;
-  if (isNaN(Ava)) Ava = 0;
-  let Perfor = (Oeedata[0]?.performance+PerforPro)/100; // add Perpro
-  if (isNaN(Perfor)) Perfor = 0;
-  let Quality = Oeedata[0]?.okqty / (Oeedata[0]?.okqty + Oeedata[0]?.ngqty);
-  if (isNaN(Quality)) Quality = 0;
+    Perfor = parseFloat(Number((Perfor+PerforPro)/2).toFixed(0)); 
+    if (isNaN(Perfor)) Perfor = 0;
+    console.log({PerforPro})
+    console.log({Perfor})
+
+    Quality = (Oeedata[0]?.okqty+PerData[0]?.okqty) / ((Oeedata[0]?.okqty+PerData[0]?.okqty) + (Oeedata[0]?.ngqty+PerData[0]?.ngqty));
+    if (isNaN(Quality)) Quality = 0;
+    console.log({Quality})
+  }else{
+    AvaTemp = Number(PerData[0]?.runtime)/Number(PerData[0]?.duration);
+    Ava = parseFloat(Number(AvaTemp*100).toFixed(0));
+    if (isNaN(Ava)) Ava = 0;
+    console.log({Ava})
+
+    Perfor = parseFloat(Number(PerData[0]?.performance).toFixed(0));
+    if (isNaN(Perfor)) Perfor = 0;
+    console.log({Perfor})
+
+    Quality = Oeedata[0]?.okqty / (Oeedata[0]?.okqty + Oeedata[0]?.ngqty);
+    if (isNaN(Quality)) Quality = 0;
+    console.log({Quality})
+  }
+    
   let oee = Ava * Perfor * Quality * 100;
   if (isNaN(oee)) oee = 0;
+  console.log({oee})
+  
   let OeePercent = parseFloat(Number(oee).toFixed(0));
   if (isNaN(OeePercent)) OeePercent = 0;
+  console.log({OeePercent})
 
   return (
     <div>

@@ -22,6 +22,7 @@ export const ShowPerformance = (props: { pdkey: String, pdstatus: String }) => {
       },
       (payload) => {
         fetchData();
+        fetchShowProgress();
       }
     )
     .subscribe();
@@ -53,21 +54,6 @@ export const ShowPerformance = (props: { pdkey: String, pdstatus: String }) => {
   }, []);
   
   //*** */
-  const ProductionHistory = supabase
-    .channel("progress-work-channel")
-    .on(
-      "postgres_changes",
-      {
-        event: "*",
-        schema: "public",
-        table: "Production_history",
-        filter: "Production_unit=eq."+lineunit,
-      },
-      (payload) => {
-        fetchShowProgress();
-      }
-    )
-    .subscribe();
 
   const fetchShowProgress = async () => {
     let { data, error } = await supabase.rpc("onprogress", {
