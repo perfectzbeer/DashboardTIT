@@ -79,7 +79,7 @@ useEffect(() => {
   let AvaTemp = 0;
   let Quality = 0;
   if(ShowProgress.length>0){
-    AvaTemp = (Number(Oeedata[0]?.runtime)+(ShowProgress[0]?.duration - ShowProgress[0]?.downtime)) / (Number(ShowProgress[0]?.duration)+ShowProgress[0]?.duration);
+    AvaTemp = (Number(Oeedata[0]?.runtime)+(ShowProgress[0]?.duration - ShowProgress[0]?.downtime)) / (Number(Oeedata[0]?.duration)+ShowProgress[0]?.duration);
     Ava = parseFloat(Number(AvaTemp*100).toFixed(0));
     if (isNaN(Ava)) Ava = 0;
 
@@ -108,11 +108,11 @@ useEffect(() => {
     if (isNaN(Quality)) Quality = 0;
   }
     
-  let oee = (Ava/100) * Perfor * Quality;
+  let oee = (Ava * Perfor * Quality)/100;
   if (isNaN(oee)) oee = 0;
   let OeePercent = parseFloat(Number(oee).toFixed(0));
   if (isNaN(OeePercent)) OeePercent = 0;
-
+  
   return (
     <div>
       <div className="NameGauge">Quality</div>
