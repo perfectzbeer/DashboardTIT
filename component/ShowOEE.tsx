@@ -82,9 +82,8 @@ useEffect(() => {
     AvaTemp = (Number(ShowProgress[0]?.runtime)+(ShowProgress[0]?.duration - ShowProgress[0]?.downtime)) / (Number(ShowProgress[0]?.duration)+ShowProgress[0]?.duration);
     Ava = parseFloat(Number(AvaTemp*100).toFixed(0));
     if (isNaN(Ava)) Ava = 0;
-    console.log({Ava})
 
-    Perfor = parseFloat(Number(ShowProgress[0]?.performance).toFixed(0));
+    Perfor = parseFloat(Number(Oeedata[0]?.performance).toFixed(0));
     let PerforPro = (ShowProgress[0]?.std * (ShowProgress[0]?.okqty + ShowProgress[0]?.ngqty)) / ((ShowProgress[0]?.duration - ShowProgress[0]?.downtime));
     if (isNaN(PerforPro)) PerforPro = 0;
 
@@ -111,7 +110,7 @@ useEffect(() => {
     
   let oee = Ava * Perfor * Quality * 100;
   if (isNaN(oee)) oee = 0;
-  
+  console.log({Ava})
   let OeePercent = parseFloat(Number(oee).toFixed(0));
   if (isNaN(OeePercent)) OeePercent = 0;
 
