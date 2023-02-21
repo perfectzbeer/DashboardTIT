@@ -49,7 +49,40 @@ export const ShowOEE = (props: { pdkey: String, pdstatus: String }) => {
       }
     };
     fetchDataOEE();
-  }, []);
+  }, []); 
+
+  useEffect(() => {
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+          const fetchDataPer = async () => {
+            const { data, error } = await supabase.rpc("showoeeline", {
+              prounit: lineunit,
+              pdate: Today,
+              pstatus: pdstatus
+            });
+            if (!error) {
+              SetOeeData(data);
+            }
+          };
+          fetchDataPer();
+      }
+    });
+    
+      document.addEventListener("click", (e) => {
+        const fetchDataPer = async () => {
+          const { data, error } = await supabase.rpc("showoeeline", {
+            prounit: lineunit,
+            pdate: Today,
+            pstatus: pdstatus
+          });
+          if (!error) {
+            SetOeeData(data);
+          }
+        };
+        fetchDataPer();
+      });
+    
+  },[])
 
 
     //*** */

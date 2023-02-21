@@ -51,7 +51,40 @@ export const ShowPerformance = (props: { pdkey: String, pdstatus: String }) => {
       }
     };
     fetchDataPer();
-  }, []);
+  },[]);
+
+  useEffect(() => {
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+          const fetchDataPer = async () => {
+            const { data, error } = await supabase.rpc("showoeeline", {
+              prounit: lineunit,
+              pdate: Today,
+              pstatus: pdstatus
+            });
+            if (!error) {
+              SetPerData(data);
+            }
+          };
+          fetchDataPer();
+      }
+    });
+
+      document.addEventListener("click", (e) => {
+        const fetchDataPer = async () => {
+          const { data, error } = await supabase.rpc("showoeeline", {
+            prounit: lineunit,
+            pdate: Today,
+            pstatus: pdstatus
+          });
+          if (!error) {
+            SetPerData(data);
+          }
+        };
+        fetchDataPer();
+      });
+    
+  },[])
   
   //*** */
 

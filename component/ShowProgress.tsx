@@ -4,7 +4,6 @@ import supabase from "./supabase";
 
 export const ShowProgress = (props: { pdkey: String }) => {
   const { pdkey } = props;
-  const mounted = useRef(false);
   const [ShowProgress, SetShowProgress] = useState<any>("");
   const lineunit = 'AHPB-01';
 
@@ -33,8 +32,36 @@ export const ShowProgress = (props: { pdkey: String }) => {
     }
   };
 
+  // useEffect(() => {
+  //   document.addEventListener("keydown", function (event) {
+  //     if (event.key === "Enter") {
+  //         const fetchShowProgress = async () => {
+  //           const { data, error } = await supabase.rpc("showprogress", {
+  //             propdkey: pdkey,
+  //           });
+  //           if (!error) {
+  //             SetShowProgress(data);
+  //           }
+  //         };
+  //         fetchShowProgress();
+  //     }
+  //   });
+    
+  //     document.addEventListener("click", (e) => {
+  //       const fetchShowProgress = async () => {
+  //         const { data, error } = await supabase.rpc("showprogress", {
+  //           propdkey: pdkey,
+  //         });
+  //         if (!error) {
+  //           SetShowProgress(data);
+  //         }
+  //       };
+  //       fetchShowProgress();
+  //     });
+    
+  // },[])
+
   useEffect(() => {
-    mounted.current = true;
     const fetchShowProgress = async () => {
       const { data, error } = await supabase.rpc("showprogress", {
         propdkey: pdkey,
@@ -44,9 +71,6 @@ export const ShowProgress = (props: { pdkey: String }) => {
       }
     };
     fetchShowProgress();
-    return () => {
-      mounted.current = false;
-    };
   }, [pdkey]);
 
   let ProPercent = parseFloat(Number(ShowProgress[0]?.percent).toFixed(0));
