@@ -32,34 +32,48 @@ export const ShowProgress = (props: { pdkey: String }) => {
     }
   };
 
-  // useEffect(() => {
-  //   document.addEventListener("keydown", function (event) {
-  //     if (event.key === "Enter") {
-  //         const fetchShowProgress = async () => {
-  //           const { data, error } = await supabase.rpc("showprogress", {
-  //             propdkey: pdkey,
-  //           });
-  //           if (!error) {
-  //             SetShowProgress(data);
-  //           }
-  //         };
-  //         fetchShowProgress();
-  //     }
-  //   });
+  useEffect(() => {
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+          const fetchShowProgress = async () => {
+            const { data, error } = await supabase.rpc("showprogress", {
+              propdkey: pdkey,
+            });
+            if (!error) {
+              SetShowProgress(data);
+            }
+          };
+          fetchShowProgress();
+        }
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "F11") {
+          const fetchShowProgress = async () => {
+            const { data, error } = await supabase.rpc("showprogress", {
+              propdkey: pdkey,
+            });
+            if (!error) {
+              SetShowProgress(data);
+            }
+          };
+          fetchShowProgress();
+        }
+    });
     
-  //     document.addEventListener("click", (e) => {
-  //       const fetchShowProgress = async () => {
-  //         const { data, error } = await supabase.rpc("showprogress", {
-  //           propdkey: pdkey,
-  //         });
-  //         if (!error) {
-  //           SetShowProgress(data);
-  //         }
-  //       };
-  //       fetchShowProgress();
-  //     });
+      document.addEventListener("click", (e) => {
+        const fetchShowProgress = async () => {
+          const { data, error } = await supabase.rpc("showprogress", {
+            propdkey: pdkey,
+          });
+          if (!error) {
+            SetShowProgress(data);
+          }
+        };
+        fetchShowProgress();
+      });
     
-  // },[])
+  },[pdkey])
 
   useEffect(() => {
     const fetchShowProgress = async () => {

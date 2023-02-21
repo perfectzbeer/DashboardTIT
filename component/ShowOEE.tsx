@@ -67,6 +67,22 @@ export const ShowOEE = (props: { pdkey: String, pdstatus: String }) => {
           fetchDataPer();
       }
     });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "F11") {
+          const fetchDataPer = async () => {
+            const { data, error } = await supabase.rpc("showoeeline", {
+              prounit: lineunit,
+              pdate: Today,
+              pstatus: pdstatus
+            });
+            if (!error) {
+              SetOeeData(data);
+            }
+          };
+          fetchDataPer();
+      }
+    });
     
       document.addEventListener("click", (e) => {
         const fetchDataPer = async () => {

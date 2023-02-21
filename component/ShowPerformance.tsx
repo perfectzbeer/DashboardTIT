@@ -70,6 +70,22 @@ export const ShowPerformance = (props: { pdkey: String, pdstatus: String }) => {
       }
     });
 
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "F11") {
+          const fetchDataPer = async () => {
+            const { data, error } = await supabase.rpc("showoeeline", {
+              prounit: lineunit,
+              pdate: Today,
+              pstatus: pdstatus
+            });
+            if (!error) {
+              SetPerData(data);
+            }
+          };
+          fetchDataPer();
+      }
+    });
+
       document.addEventListener("click", (e) => {
         const fetchDataPer = async () => {
           const { data, error } = await supabase.rpc("showoeeline", {
@@ -84,7 +100,7 @@ export const ShowPerformance = (props: { pdkey: String, pdstatus: String }) => {
         fetchDataPer();
       });
     
-  },[])
+  },[event])
   
   //*** */
 
