@@ -100,7 +100,7 @@ export const ShowPerformance = (props: { pdkey: String, pdstatus: String }) => {
         fetchDataPer();
       });
     
-  },[event])
+  },[])
   
   //*** */
 
